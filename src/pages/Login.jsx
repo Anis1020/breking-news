@@ -1,18 +1,30 @@
 import { useContext } from "react";
 import { AuthContext } from "../authProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const { logInByGoogle } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
+  const handleFormLogin = (e) => {
+    e.preventdefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    toast("Login successfully!");
+    const loginFormData = { email, password };
+    console.log(loginFormData);
+  };
   //   google login
   const handleGoogleLogin = () => {
     logInByGoogle()
       .then((res) => {
-        console.log(res.user);
-        navigate("/");
+        console.log(res);
+
+        navigate(location?.state ? location.state : "/");
       })
       .catch((error) => console.log(error));
   };
@@ -25,24 +37,20 @@ const Login = () => {
             <h1 className="text-5xl font-bold">Login now!</h1>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form className="card-body">
+            <form onSubmit={handleFormLogin} className="card-body">
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
                 <input
                   type="email"
+                  name="email"
                   placeholder="email"
                   className="input input-bordered"
                   required
                 />
               </div>
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
                 <input
                   type="password"
+                  name="password"
                   placeholder="password"
                   className="input input-bordered"
                   required
@@ -60,6 +68,7 @@ const Login = () => {
             <button onClick={handleGoogleLogin} className="btn btn-primary">
               Google
             </button>
+            <ToastContainer />;
           </div>
         </div>
       </div>

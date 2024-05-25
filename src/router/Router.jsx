@@ -9,6 +9,7 @@ import AddNews from "../dashboard/AddNews";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import PrivetRoute from "./PrivetRoute";
+import NewsDetails from "../components/home/NewsDetails";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,16 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Registration></Registration>,
+      },
+      {
+        path: "/details/:id",
+        // loader: ({ params }) =>
+        //   fetch(`http://localhost:3000/news/${params.id}`),
+        element: (
+          <PrivetRoute>
+            <NewsDetails></NewsDetails>
+          </PrivetRoute>
+        ),
       },
     ],
   },
