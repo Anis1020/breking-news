@@ -11,7 +11,7 @@ const LeftSideBar = () => {
     const fetchData = async () => {
       try {
         // Replace with your data fetching logic
-        const response = await fetch("http://localhost:3000/category");
+        const response = await fetch("categories.json");
         const result = await response.json();
         setCategory(result);
       } catch (err) {
